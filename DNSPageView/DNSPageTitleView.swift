@@ -225,13 +225,19 @@ extension DNSPageTitleView {
         coverView.frame = CGRect(x: x, y: y, width: width, height: height)
     }
     
-    private func setupBottomLineLayout() {
+    private func setupBottomLineLayout(_ targetLabel:UILabel? = nil) {
         guard titleLabels.count - 1 >= currentIndex else { return }
-        let label = titleLabels[currentIndex]
-        
-        bottomLine.frame.origin.x = label.frame.origin.x
+
+        let label = targetLabel ?? titleLabels[currentIndex]
+
         bottomLine.frame.origin.y = self.bounds.height - self.style.bottomLineHeight
-        bottomLine.frame.size.width = label.frame.width
+        if let lineWidth = style.bottomLineWidth {
+            bottomLine.frame.origin.x = (label.frame.size.width-lineWidth)/2+label.frame.origin.x
+            bottomLine.frame.size.width = lineWidth
+        }else{
+            bottomLine.frame.origin.x = label.frame.origin.x
+            bottomLine.frame.size.width = label.frame.width
+        }
         bottomLine.frame.size.height = self.style.bottomLineHeight
     }
 }
@@ -269,8 +275,7 @@ extension DNSPageTitleView {
         
         if style.isShowBottomLine {
             UIView.animate(withDuration: 0.25, animations: {
-                self.bottomLine.frame.origin.x = targetLabel.frame.origin.x
-                self.bottomLine.frame.size.width = targetLabel.frame.width
+                self.setupBottomLineLayout(targetLabel)
             })
         }
         
@@ -343,8 +348,14 @@ extension DNSPageTitleView : DNSPageContentViewDelegate {
         if style.isShowBottomLine {
             let deltaX = targetLabel.frame.origin.x - sourceLabel.frame.origin.x
             let deltaW = targetLabel.frame.width - sourceLabel.frame.width
-            bottomLine.frame.origin.x = sourceLabel.frame.origin.x + progress * deltaX
-            bottomLine.frame.size.width = sourceLabel.frame.width + progress * deltaW
+
+            if let lineWidth = style.bottomLineWidth {
+                bottomLine.frame.origin.x = (sourceLabel.frame.size.width-lineWidth)/2+sourceLabel.frame.origin.x + progress * deltaX
+                bottomLine.frame.size.width = lineWidth
+            }else{
+                bottomLine.frame.origin.x = sourceLabel.frame.origin.x + progress * deltaX
+                bottomLine.frame.size.width = sourceLabel.frame.width + progress * deltaW
+            }
         }
         
         if style.isShowCoverView {
@@ -365,8 +376,7 @@ extension DNSPageTitleView : DNSPageContentViewDelegate {
             }
             
             if self.style.isShowBottomLine {
-                self.bottomLine.frame.origin.x = targetLabel.frame.origin.x
-                self.bottomLine.frame.size.width = targetLabel.frame.width
+                self.setupBottomLineLayout(targetLabel)
             }
             
             if self.style.isShowCoverView {

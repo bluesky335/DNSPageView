@@ -40,12 +40,14 @@ public class DNSPageStyle {
     
     /// titleView滑动
     public var isTitleViewScrollEnabled: Bool = false
+    public var shouldAnimatedContentView: Bool = false
     
     /// title下划线
     public var isShowBottomLine: Bool = false
     public var bottomLineColor: UIColor = UIColor.blue
     public var bottomLineHeight: CGFloat = 2
     public var bottomLineRadius: CGFloat = 1
+    public var bottomLineWidth: CGFloat?
 
     
     /// title缩放

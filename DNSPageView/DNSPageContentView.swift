@@ -222,7 +222,7 @@ extension DNSPageContentView: DNSPageTitleViewDelegate {
         }
         let indexPath = IndexPath(item: currentIndex, section: 0)
 
-        collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: style.shouldAnimatedContentView)
     }
 }
 
