@@ -47,7 +47,7 @@ public class DNSPageStyle {
     public var bottomLineColor: UIColor = UIColor.blue
     public var bottomLineHeight: CGFloat = 2
     public var bottomLineRadius: CGFloat = 1
-    public var bottomLineWidth: CGFloat?
+    public var bottomLineWidth: CGFloat?        //为空则和标题宽度保持一致.
 
     
     /// title缩放

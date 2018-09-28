@@ -11,7 +11,7 @@ import DNSPageView
 
 class ViewController4: UIViewController {
 
-    private lazy var titles = ["头条hhh", "视频233", "视频233", "视频233", "视频233", "视频233"]
+    private lazy var titles = ["头条", "视频", "文章"]
 
     private lazy var pageViewManager: DNSPageViewManager = {
         // 创建DNSPageStyle，设置样式
